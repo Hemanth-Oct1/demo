@@ -63,21 +63,6 @@ jobs:
         with:
           name: artifacts
 
-      - name: Authenticate with Anypoint Platform
-        id: authenticate
-        run: |
-          echo "Authenticating with Anypoint Platform..."
-          response=$(curl -X POST https://anypoint.mulesoft.com/accounts/api/v2/oauth2/token \
-          -H "Content-Type: application/json" \
-          -d '{
-            "grant_type": "password",
-            "username": "'"${{ secrets.ANYPOINT_USERNAME }}"'",
-            "password": "'"${{ secrets.ANYPOINT_PASSWORD }}"'"
-          }')
-          echo "$response" > auth.json
-          TOKEN=$(jq -r '.access_token' auth.json)
-          echo "::set-output name=access_token::$TOKEN"
-
       - name: Deploy to dev
         env:
           USERNAME: ${{ secrets.connected_app_client_id }}
