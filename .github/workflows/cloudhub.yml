@@ -1,0 +1,14 @@
+name: Deploy MuleSoft Application
+ 
+on:
+  push:
+    branches:
+      - cloudhub
+  pull_request:
+    branches:
+      - cloudhub
+      
+jobs:
+  call-workflow:
+    uses: GayathriNuthalapati/algolia-api-java17/.github/workflows/reusableWorkflow.yml@cloudhub
+    secrets: inherit
