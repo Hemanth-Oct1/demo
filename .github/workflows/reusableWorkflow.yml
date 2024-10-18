@@ -43,8 +43,6 @@ jobs:
       with:
           name: artifacts
           path: target/*.jar
-
-
         
   deploydev:
     needs: build
@@ -64,16 +62,17 @@ jobs:
         name: artifacts
     - name: Deploy to dev
       env:
-        USERNAME: ${{ secrets.connected_app_client_id}}
+        USERNAME: ${{ secrets.connected_app_client_id }}
         PASSWORD: ${{ secrets.connected_app_client_secret}}
         PLATFORM_CLIENT_ID: ${{secrets.org_client_id}}
         PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret}}
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DmuleDeploy \
-         -Dmule.artifact=demo-privatespace-deploy \
+         -Dmule.artifact=$artifactName \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
          -Denv=Dev \
-         -Dappname=demo-app-dev \
-         
+         -Dappname=algolia-app-prod \
+         -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
+         -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET"
