@@ -39,7 +39,7 @@
 						<connectedAppGrantType>client_credentials</connectedAppGrantType>
 						<applicationName>${appname}</applicationName>
 						<environment>${env}</environment>
-						<region>us-east-2</region>
+						<region>DemoSpace</region>
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
 					</cloudHubDeployment>
