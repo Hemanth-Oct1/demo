@@ -68,17 +68,17 @@ jobs:
         PASSWORD: ${{ secrets.connected_app_client_secret}}
         PLATFORM_CLIENT_ID: ${{secrets.org_client_id}}
         PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret}}
+        PRIVATE_SPACE_ID: ${{ secrets.PRIVATE_SPACE_ID }}
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DmuleDeploy \
          -Dmule.artifact=$artifactName \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
-         -Ddecryption.key="${{ secrets.key }}" \
-         -Dmule.env=dev \
          -Denv=dev \
-         -Dappname=algolia-app-dev \
+         -Dappname=demo-app-dev \
          -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
-         -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET"
+         -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET" \
+         -Danypoint.platform.private_space_id="$PRIVATE_SPACE_ID"
 
          
