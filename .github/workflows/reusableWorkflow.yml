@@ -66,6 +66,7 @@ jobs:
       env:
         USERNAME: ${{ secrets.connected_app_client_id}}
         PASSWORD: ${{ secrets.connected_app_client_secret}}
+        BUSINESS_GROUP_ID: ${{ secrets.business_group_id}}
         PLATFORM_CLIENT_ID: ${{secrets.org_client_id}}
         PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret}}
         PRIVATE_SPACE_ID: ${{ secrets.PRIVATE_SPACE_ID }}
@@ -77,8 +78,6 @@ jobs:
          -Danypoint.password="$PASSWORD" \
          -Denv=dev \
          -Dappname=demo-app-dev \
-         -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
-         -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET" \
-         -Danypoint.platform.private_space_id="$PRIVATE_SPACE_ID"
-
+         -Danypoint.platform.private_space_id="$PRIVATE_SPACE_ID" 
+         
          
