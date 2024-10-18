@@ -79,7 +79,7 @@ jobs:
            -Dmule.artifact=$artifactName \
            -Danypoint.username="$USERNAME" \
            -Danypoint.password="$PASSWORD" \
-           -Denv=PROD \
+           -Denv=Dev \
            -Dappname=demo-app-dev \
            -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
            -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET" \
