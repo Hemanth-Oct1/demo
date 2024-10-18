@@ -43,36 +43,61 @@ jobs:
       with:
           name: artifacts
           path: target/*.jar
-        
+          
   deploydev:
     needs: build
     runs-on: ubuntu-latest
-    steps:    
-    - name: Checkout this repo
-      uses: actions/checkout@v3
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - uses: actions/download-artifact@v3
-      with:
-        name: artifacts
-    - name: Deploy to dev
-      env:
-        USERNAME: ${{ secrets.connected_app_client_id }}
-        PASSWORD: ${{ secrets.connected_app_client_secret}}
-        PLATFORM_CLIENT_ID: ${{secrets.org_client_id}}
-        PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret}}
-      run: |
-        artifactName=$(ls *.jar | head -1)
-        mvn deploy -DmuleDeploy \
-         -Dmule.artifact=$artifactName \
-         -Danypoint.username="$USERNAME" \
-         -Danypoint.password="$PASSWORD" \
-         -Denv=qa \
-         -Dappname=demo-app-dev \
-         -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
-         -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET"
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+
+      - name: Authenticate with Anypoint Platform
+        id: authenticate
+        run: |
+          echo "Authenticating with Anypoint Platform..."
+          response=$(curl -X POST https://anypoint.mulesoft.com/accounts/api/v2/oauth2/token \
+          -H "Content-Type: application/json" \
+          -d '{
+            "grant_type": "password",
+            "username": "'"${{ secrets.ANYPOINT_USERNAME }}"'",
+            "password": "'"${{ secrets.ANYPOINT_PASSWORD }}"'"
+          }')
+          echo "$response" > auth.json
+          TOKEN=$(jq -r '.access_token' auth.json)
+          echo "::set-output name=access_token::$TOKEN"
+
+      - name: Deploy to dev
+        env:
+          USERNAME: ${{ secrets.connected_app_client_id }}
+          PASSWORD: ${{ secrets.connected_app_client_secret}}
+          PLATFORM_CLIENT_ID: ${{secrets.org_client_id}}
+          PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret}}
+          PRIVATE_SPACE_ID: ${{ secrets.PRIVATE_SPACE_ID }}
+          APPLICATION_NAME: algolia-app-prod
+          ORGANIZATION_ID: ${{ secrets.ORG_ID }}
+          ENVIRONMENT_ID: ${{ secrets.ENVIRONMENT_ID }}
+        run: |
+          artifactName=$(ls *.jar | head -1)
+          mvn deploy -DmuleDeploy \
+           -Dmule.artifact=$artifactName \
+           -Danypoint.username="$USERNAME" \
+           -Danypoint.password="$PASSWORD" \
+           -Denv=qa \
+           -Dappname=demo-app-dev \
+           -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
+           -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET" \
+           -Danypoint.platform.private_space_id="$PRIVATE_SPACE_ID" \
+           -Danypoint.platform.organization_id="$ORGANIZATION_ID" \
+           -Danypoint.platform.environment_id="$ENVIRONMENT_ID"  
