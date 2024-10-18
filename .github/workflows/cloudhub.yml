@@ -3,10 +3,10 @@ name: Deploy MuleSoft Application
 on:
   push:
     branches:
-      - demo-g
+      - demo-
   pull_request:
     branches:
-      - demo-g
+      - demo-
       
 jobs:
   call-workflow:
