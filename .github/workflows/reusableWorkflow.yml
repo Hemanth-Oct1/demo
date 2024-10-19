@@ -70,9 +70,6 @@ jobs:
           PLATFORM_CLIENT_ID: ${{secrets.org_client_id}}
           PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret}}
           PRIVATE_SPACE_ID: ${{ secrets.PRIVATE_SPACE_ID }}
-          ORGANIZATION_ID: ${{ secrets.ORG_ID }}
-          ENVIRONMENT_ID: ${{ secrets.ENVIRONMENT_ID }}
-          
         run: |
           artifactName=$(ls *.jar | head -1)
           mvn deploy -DmuleDeploy \
@@ -81,8 +78,6 @@ jobs:
            -Danypoint.password="$PASSWORD" \
            -Denv=Dev \
            -Dappname=demo-app-dev \
-           -Danypoint.businessGroup="$ORGANIZATION_ID" \
-           -Danypoint.environment="$ENVIRONMENT_ID" \
            -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
            -Danypoint.platform.client_secret="$PLATFORM_CLIENT_SECRET" \
            -Danypoint.platform.private_space_id="$PRIVATE_SPACE_ID" \
