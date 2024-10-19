@@ -30,13 +30,6 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-			                <deploy>
-			                    <username>${anypoint.username}</username>
-			                    <password>${anypoint.password}</password>
-			                    <environment>${anypoint.environment}</environment>
-			                    <businessGroup>${anypoint.businessGroup}</businessGroup>
-			                    <target>${anypoint.target}</target> <!-- Optional, e.g., cloudhub, private-space -->
-			                </deploy>
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<muleVersion>4.4.0</muleVersion>
@@ -44,6 +37,7 @@
 						<connectedAppClientId>${anypoint.username}</connectedAppClientId>
 						<connectedAppClientSecret>${anypoint.password}</connectedAppClientSecret>
 						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<businessGroup>${anypoint.businessGroup}</businessGroup>
 						<applicationName>${appname}</applicationName>
 						<environment>${env}</environment>
 						<region>us-east-2</region>
