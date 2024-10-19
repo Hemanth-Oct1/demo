@@ -67,7 +67,7 @@ jobs:
         env:
           USERNAME: ${{ secrets.connected_app_client_id }}
           PASSWORD: ${{ secrets.connected_app_client_secret }}
-          BUSINESS_GROUP_ID: ${{ secret.business_group_id }}
+          BUSINESS_GROUP_ID: ${{ secrets.business_group_id }}
           PLATFORM_CLIENT_ID: ${{secrets.org_client_id }}
           PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret }}
           PRIVATE_SPACE_ID: ${{ secrets.PRIVATE_SPACE_ID }}
