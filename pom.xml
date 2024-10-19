@@ -35,7 +35,6 @@
 						<businessGroup>${anypoint.businessGroup}</businessGroup>
 						<applicationName>${appname}</applicationName>
 						<environment>${env}</environment>
-						<privateSpaceId>${anypoint.privateSpaceId}</privateSpaceId>
 						<region>us-east-2</region>
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
