@@ -72,13 +72,13 @@ jobs:
           PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret }}
           PRIVATE_SPACE_ID : ${{secrets.private_space_id}}
         run: |
+          echo "Business Group ID: $BUSINESS_GROUP_ID"
           artifactName=$(ls *.jar | head -1)
           mvn deploy -DmuleDeploy \
            -Dmule.artifact=demo-privatespace-deploy \
            -Danypoint.username="$USERNAME" \
            -Danypoint.password="$PASSWORD" \
            -Danypoint.businessGroup="$BUSINESS_GROUP_ID" \
-           echo "Business Group ID: $BUSINESS_GROUP_ID"
            -Denv=Dev \
            -Dappname=demo-app-dev \
            -Danypoint.platform.client_id="$PLATFORM_CLIENT_ID" \
