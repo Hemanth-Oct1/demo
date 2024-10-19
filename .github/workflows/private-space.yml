@@ -10,5 +10,5 @@ on:
       
 jobs:
   call-workflow:
-    uses: Hemanth-Oct1/demo/.github/workflows/reusableWorkflow.yml@test
+    uses: Hemanth-Oct1/demo/.github/workflows/reusableWorkflow.yml@test1
     secrets: inherit
