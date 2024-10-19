@@ -70,7 +70,7 @@ jobs:
           BUSINESS_GROUP_ID: ${{ secrets.business_group_id }}
           PLATFORM_CLIENT_ID: ${{secrets.org_client_id }}
           PLATFORM_CLIENT_SECRET: ${{secrets.org_client_secret }}
-          
+          PRIVATE_SPACE_ID : ${{secrets.private_space_id}}
         run: |
           artifactName=$(ls *.jar | head -1)
           mvn deploy -DmuleDeploy \
