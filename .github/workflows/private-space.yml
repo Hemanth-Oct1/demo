@@ -3,12 +3,12 @@ name: Deploy MuleSoft Application
 on:
   push:
     branches:
-      - private-space
+      - test1
   pull_request:
     branches:
-      - private-space
+      - test1
       
 jobs:
   call-workflow:
-    uses: Hemanth-Oct1/demo/.github/workflows/reusableWorkflow.yml@private-space
+    uses: Hemanth-Oct1/demo/.github/workflows/reusableWorkflow.yml@test
     secrets: inherit
